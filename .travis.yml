@@ -1,8 +1,6 @@
 os:
     - osx
 language: python
-  - "2.7"
-  - "3.5"
   - "3.6"
 
 matrix:
@@ -28,5 +26,9 @@ install:
   # Replace dep1 dep2 ... with your dependencies
   - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION conda-build anaconda-client
   - source activate test-environment
-  - python setup.py install
+
+jobs:
+    include:
+        - stage: 
+    
 
