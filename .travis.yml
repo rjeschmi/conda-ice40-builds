@@ -38,6 +38,9 @@ jobs:
     include:
      - stage: "Verilog Tools"
        env:
+       - PACKAGE=icestorm
+     - stage: "Verilog Tools"
+       env:
        - PACKAGE=nextpnr
 
 script:
