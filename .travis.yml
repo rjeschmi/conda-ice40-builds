@@ -8,6 +8,12 @@ matrix:
         - os: osx
           dist: xcode6.4
 
+before_install: 
+  - git submodule update --init --remote --recursive
+  - rsync -av conda-hdmi2usb-packages/.travis .
+  - rsync -av conda-hdmi2usb-packages/* .
+  - source $TRAVIS_BUILD_DIR/.travis/common.sh
+
 install:
   # We do this conditionally because it saves us some downloading if the
   # version is the same.
@@ -29,6 +35,10 @@ install:
 
 jobs:
     include:
-        - stage: 
-    
+     - stage: "Verilog Tools"
+       env:
+       - PACKAGE=nextpnr
+
+script:
+  - bash $TRAVIS_BUILD_DIR/.travis/script.sh 
 
