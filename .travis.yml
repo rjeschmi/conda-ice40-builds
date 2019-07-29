@@ -28,11 +28,9 @@ install:
   - conda update -q conda
   # Useful for debugging any issues with conda
   - conda info -a
-
-  # Replace dep1 dep2 ... with your dependencies
   - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION conda-build anaconda-client
   - source activate test-environment
-  - bash $TRAVIS_BUILD_DIR/.travis/script.sh
+  - ./travis/install.sh
 
 jobs:
     include:
