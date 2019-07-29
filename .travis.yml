@@ -10,6 +10,7 @@ matrix:
 
 before_install: 
   - git submodule update --init --remote --recursive
+  - brew install md5sha1sum
   - rsync -av conda-hdmi2usb-packages/.travis .
   - rsync -av conda-hdmi2usb-packages/* .
   - source $TRAVIS_BUILD_DIR/.travis/common.sh
