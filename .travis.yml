@@ -30,7 +30,8 @@ install:
   - conda info -a
   - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION conda-build anaconda-client
   - source activate test-environment
-  - ./.travis/install.sh
+  - conda render $PACKAGE
+  - conda build $PACKAGE
 
 jobs:
     include:
