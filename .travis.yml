@@ -3,7 +3,7 @@ os:
 language: python
   - "3.6"
 
-matrixe
+matrix:
     include:
         - os: osx
           dist: xcode6.4
