@@ -10,9 +10,11 @@ matrix:
 
 before_install: 
   - git submodule update --init --remote --recursive
-  - rsync -av conda-hdmi2usb-packages/.travis .
   - rsync -av conda-hdmi2usb-packages/* .
   - source $TRAVIS_BUILD_DIR/.travis/common.sh
+  - cd /opt
+  - curl -LO https://github.com/phracker/MacOSX-SDKs/releases/download/10.13/MacOSX10.9.sdk.tar.xz
+  - tar xvf MacOSX10.9.sdk.tar.xz
 
 install:
   # We do this conditionally because it saves us some downloading if the
@@ -28,8 +30,7 @@ install:
   - conda update -q conda
   # Useful for debugging any issues with conda
   - conda info -a
-  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION conda-build anaconda-client
-  - source activate test-environment
+  - conda install conda-build anaconda-client
   - conda render $PACKAGE
   - conda build $PACKAGE
 
