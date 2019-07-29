@@ -12,9 +12,10 @@ before_install:
   - git submodule update --init --remote --recursive
   - rsync -av conda-hdmi2usb-packages/* .
   - source $TRAVIS_BUILD_DIR/.travis/common.sh
-  - cd /opt
+  - cd /tmp
   - curl -LO https://github.com/phracker/MacOSX-SDKs/releases/download/10.13/MacOSX10.9.sdk.tar.xz
-  - tar xvf MacOSX10.9.sdk.tar.xz
+  - mkdir -p /opt
+  - tar -C /opt xvf MacOSX10.9.sdk.tar.xz
 
 install:
   # We do this conditionally because it saves us some downloading if the
