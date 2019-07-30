@@ -6,7 +6,7 @@ language: python
 matrix:
     include:
         - os: osx
-          dist: xcode6.4
+          osx_image: xcode6.4
 
 before_install: 
   - git submodule update --init --remote --recursive
