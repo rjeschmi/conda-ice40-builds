@@ -1,0 +1,105 @@
+#! /bin/bash
+
+# Copyright (c) 2019 Giovanni Bussi
+
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+export COLUMNS=80
+
+# file to be source at the end of subshell:
+export CONDABUILD_CI_SOURCEME="$(mktemp)"
+
+(
+
+# start subshell
+# this allows to use the script in two ways:
+# 1. as ./conda-ci
+# 2. as source ./conda-ci
+
+
+
+if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+    csys=Linux
+elif [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+    csys=MacOSX
+else
+    echo "Unsupported system $TRAVIS_OS_NAME"
+    exit 1
+fi
+
+action=$1
+shift
+
+case "$action" in
+(install)
+
+# default location
+export CONDA_PREFIX=$HOME/opt/conda
+
+echo "conda-ci: install"
+
+for opt
+do
+  case "$opt" in
+  (--prefix=*)  CONDA_PREFIX="${opt#--prefix=}" ;;
+  (*) echo "macports-ci: unknown option $opt"
+      exit 1 ;;
+  esac
+done
+
+pushd "$(mktemp -d)"
+
+export PATH="$CONDA_PREFIX/bin:$PATH"
+echo "PATH=\"$CONDA_PREFIX/bin:\$PATH\""  > "$CONDABUILD_CI_SOURCEME"
+
+curl -LO https://repo.continuum.io/miniconda/Miniconda3-latest-$csys-x86_64.sh
+bash Miniconda3-latest-$csys-x86_64.sh -b -f -p "$CONDA_PREFIX"
+rm Miniconda3-latest-$csys-x86_64.sh
+
+source activate base
+echo "source activate base" >> "$CONDABUILD_CI_SOURCEME"
+
+conda config --set always_yes yes --set changeps1 no
+conda update -q conda
+conda info -a
+
+;;
+
+(install-conda-build)
+
+if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+    curl -LO https://github.com/phracker/MacOSX-SDKs/releases/download/10.13/MacOSX10.9.sdk.tar.xz
+    sudo mkdir -p /opt
+    sudo tar -xf MacOSX10.9.sdk.tar.xz -C /opt
+fi
+
+conda config --set anaconda_upload no # not automatically at least
+conda install conda-build conda-verify anaconda-client
+
+;;
+(*)
+echo "error"
+exit 1
+
+esac
+
+)
+
+# allows setting env var if necessary:
+source "$CONDABUILD_CI_SOURCEME"
