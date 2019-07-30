@@ -1,3 +1,4 @@
 [submodule "conda-hdmi2usb-packages"]
 	path = conda-hdmi2usb-packages
-	url = https://github.com/rjeschmi/conda-hdmi2usb-packages.git
+    url = https://github.com/rjeschmi/conda-hdmi2usb-packages.git
+    branch = osx-add
