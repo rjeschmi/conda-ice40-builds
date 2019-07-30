@@ -5,7 +5,6 @@ os: osx
 
 before_install: 
   - git submodule update --init --remote --recursive
-  - rsync -av conda-hdmi2usb-packages/* .
 
 
 env:
@@ -25,12 +24,10 @@ jobs:
        - PACKAGE=nextpnr
 
 script:
-  - script:
-# install conda
-  - source ./travis/conda-ci install $OPT
+  - source ./.travis/conda-ci install $OPT
   - echo CONDA_PREFIX is "$CONDA_PREFIX"
   - conda list
-  - source ./travis/conda-ci install-conda-build
+  - source ./.travis/conda-ci install-conda-build
   - conda list
 # build test recipe
   - conda build recipe
