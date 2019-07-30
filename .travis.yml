@@ -1,9 +1,8 @@
 language: generic
 
-matrix:
-    include:
-        - os: osx
-          osx_image: xcode6.4
+os: osx
+osx_image: xcode6.4
+
 
 before_install: 
   - git submodule update --init --remote --recursive
