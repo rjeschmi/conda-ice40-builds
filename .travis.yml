@@ -7,29 +7,7 @@ osx_image: xcode6.4
 before_install: 
   - git submodule update --init --remote --recursive
   - rsync -av conda-hdmi2usb-packages/* .
-  - source $TRAVIS_BUILD_DIR/.travis/common.sh
-    #- mkdir -p /opt
-    #- cd /opt
-    #- wget https://github.com/phracker/MacOSX-SDKs/releases/download/10.13/MacOSX10.9.sdk.tar.xz -O MacOSX10.9.sdk.tar.xz
-    #- tar xvf MacOSX10.9.sdk.tar.xz
 
-install:
-  # We do this conditionally because it saves us some downloading if the
-  # version is the same.
-  - if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" ]]; then
-      wget https://repo.continuum.io/miniconda/Miniconda2-latest-MacOSX-x86_64.sh -O miniconda.sh;
-    else
-      wget https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -O miniconda.sh;
-    fi
-  - bash miniconda.sh -b -p $HOME/miniconda
-  - export PATH="$HOME/miniconda/bin:$PATH"
-  - conda config --set always_yes yes --set changeps1 no
-  - conda update -q conda
-  # Useful for debugging any issues with conda
-  - conda info -a
-  - conda install conda-build anaconda-client
-  - conda render $PACKAGE
-  - conda build $PACKAGE
 
 env:
     global:
@@ -47,7 +25,16 @@ jobs:
        - PACKAGE=nextpnr
 
 script:
-  - bash $TRAVIS_BUILD_DIR/.travis/script.sh 
+  - script:
+# install conda
+  - source conda-ci install $OPT
+  - echo CONDA_PREFIX is "$CONDA_PREFIX"
+  - conda list
+  - source conda-ci install-conda-build
+  - conda list
+# build test recipe
+  - conda build recipe
+  - ls "$CONDA_PREFIX"/conda-bld/$TRAVIS_OS_NAME-64/testme*bz2
 
 addons:
     homebrew:
