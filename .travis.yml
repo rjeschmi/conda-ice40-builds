@@ -1,7 +1,4 @@
-os:
-    - osx
-language: python
-  - "3.6"
+language: generic
 
 matrix:
     include:
