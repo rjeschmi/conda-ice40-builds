@@ -13,6 +13,7 @@ env:
     global:
         - MACOSX_DEPLOYMENT_TARGET=10.9
         - CONDA_BUILD_SYSROOT="$(xcode-select -p)/Platforms/MacOSX.platform/Developer/SDKs/MacOSX${MACOSX_DEPLOYMENT_TARGET}.sdk"
+        - OPT="--prefix=$HOME/test/prefix"
 
 
 jobs:
@@ -27,10 +28,10 @@ jobs:
 script:
   - script:
 # install conda
-  - source conda-ci install $OPT
+  - source ./travis/conda-ci install $OPT
   - echo CONDA_PREFIX is "$CONDA_PREFIX"
   - conda list
-  - source conda-ci install-conda-build
+  - source ./travis/conda-ci install-conda-build
   - conda list
 # build test recipe
   - conda build recipe
