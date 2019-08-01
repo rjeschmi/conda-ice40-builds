@@ -5,7 +5,7 @@ os: osx
 
 before_install: 
   - git submodule update --init --remote --recursive
-  
+  - cd conda-hdmi2usb-packages && git checkout osx-add
 
 env:
     global:
@@ -16,12 +16,12 @@ env:
 
 jobs:
     include:
-     - stage: "Verilog Tools"
+     - stage: "Libraries"
        env:
-       - PACKAGE=icestorm
-     - stage: "Verilog Tools"
+       - PACKAGE=isl
+     - stage: "Libraries"
        env:
-       - PACKAGE=nextpnr
+       - PACKAGE=libusb
 
 script:
   - source ./.travis/conda-ci install $OPT
@@ -29,11 +29,16 @@ script:
   - conda list
   - source ./.travis/conda-ci install-conda-build
   - conda list
-# build test recipe
   - conda build conda-hdmi2usb-packages/$PACKAGE
-  - ls "$CONDA_PREFIX"/conda-bld/$TRAVIS_OS_NAME-64/testme*bz2
+  - ls "$CONDA_PREFIX"/conda-bld/$TRAVIS_OS_NAME-64/*bz2
+  - anaconda -t $CONDA_UPLOAD_TOKEN upload -u $USER -l nightly $$CONDA_PREFIX/conda-bld/$TRAVIS_OS_NAME-64/$PACKAGE-`date +%Y.%m.%d`-0.tar.bz2 --force
 
 addons:
     homebrew:
         packages:
             - md5sha1sum
+
+
+after_success:
+  - test $TRAVIS_BRANCH = "master" && conda install conda-build && conda install anaconda-client && bash ./.travis/conda_upload.sh
+
