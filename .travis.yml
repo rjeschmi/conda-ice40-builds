@@ -5,7 +5,7 @@ os: osx
 
 before_install: 
   - git submodule update --init --remote --recursive
-  - cd conda-hdmi2usb-packages && git checkout osx-add
+  - cd conda-hdmi2usb-packages && git checkout osx-add && cd ..
 
 env:
     global:
