@@ -20,6 +20,15 @@ jobs:
      - stage: "IceStorm"
        env:
        - PACKAGE=icestorm
+     - stage: "iVerilog"
+       env:
+       - PACKAGE=iverilog
+     - stage: "Verilator"
+       env:
+       - PACKAGE=verilator
+     - stage: "nextpnr"
+       env:
+       - PACKAGE=nextpnr
 
 script:
   - source ./.travis/conda-ci install $OPT
