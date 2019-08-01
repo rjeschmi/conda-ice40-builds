@@ -28,6 +28,8 @@ script:
   - conda list
   - conda build conda-hdmi2usb-packages/$PACKAGE
   - ls "$CONDA_PREFIX"/conda-bld/$TRAVIS_OS_NAME-64/*bz2
+  - ls "$CONDA_OUT"
+  - tar jvf $CONDA_OUT
 
 addons:
     homebrew:
@@ -36,5 +38,5 @@ addons:
 
 
 after_success:
-  - anaconda -t $CONDA_UPLOAD_TOKEN upload -u $USER -l nightly $$CONDA_PREFIX/conda-bld/$TRAVIS_OS_NAME-64/$PACKAGE-*.tar.bz2 --force
+  - anaconda -t $CONDA_UPLOAD_TOKEN upload -u rjeschmi -l nightly $$CONDA_PREFIX/conda-bld/$TRAVIS_OS_NAME-64/$PACKAGE-*.tar.bz2 --force
 
