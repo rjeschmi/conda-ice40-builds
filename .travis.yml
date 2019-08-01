@@ -28,8 +28,6 @@ script:
   - conda list
   - conda build conda-hdmi2usb-packages/$PACKAGE
   - ls "$CONDA_PREFIX"/conda-bld/$TRAVIS_OS_NAME-64/*bz2
-  - ls "$CONDA_OUT"
-  - tar jvf $CONDA_OUT
 
 addons:
     homebrew:
