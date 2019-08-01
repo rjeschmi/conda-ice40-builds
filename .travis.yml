@@ -4,6 +4,7 @@ os: osx
 
 
 before_install: 
+  - source $TRAVIS_BUILD_DIR/.travis/common.sh
   - git submodule update --init --remote --recursive
   - cd conda-hdmi2usb-packages && git checkout osx-add && cd ..
 
@@ -36,5 +37,5 @@ addons:
 
 
 after_success:
-  - anaconda -t $CONDA_UPLOAD_TOKEN upload -u rjeschmi -l nightly $$CONDA_PREFIX/conda-bld/$TRAVIS_OS_NAME-64/$PACKAGE-*.tar.bz2 --force
+  - anaconda -t $CONDA_UPLOAD_TOKEN upload -u rjeschmi -l nightly $CONDA_PREFIX/conda-bld/$TRAVIS_OS_NAME-64/$PACKAGE-*.tar.bz2 --force
 
