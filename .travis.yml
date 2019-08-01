@@ -36,5 +36,5 @@ addons:
 
 
 after_success:
-  - anaconda -t $CONDA_UPLOAD_TOKEN upload -u $USER -l nightly $$CONDA_PREFIX/conda-bld/$TRAVIS_OS_NAME-64/$PACKAGE-`date +%Y.%m.%d`-0.tar.bz2 --force
+  - anaconda -t $CONDA_UPLOAD_TOKEN upload -u $USER -l nightly $$CONDA_PREFIX/conda-bld/$TRAVIS_OS_NAME-64/$PACKAGE-*.tar.bz2 --force
 
