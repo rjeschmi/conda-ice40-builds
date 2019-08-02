@@ -7,6 +7,8 @@ before_install:
   - source $TRAVIS_BUILD_DIR/.travis/common.sh
   - git submodule update --init --remote --recursive
   - cd conda-hdmi2usb-packages && git checkout osx-add && cd ..
+  - conda config --add channel rjeschmi
+  - conda config --add channel rjeschmi/label/nightly
 
 env:
     global:
@@ -36,7 +38,7 @@ script:
   - conda list
   - source ./.travis/conda-ci install-conda-build
   - conda list
-  - conda build conda-hdmi2usb-packages/$PACKAGE
+  - conda build --skip-existing --debug conda-hdmi2usb-packages/$PACKAGE
   - ls "$CONDA_PREFIX"/conda-bld/$TRAVIS_OS_NAME-64/*bz2
 
 addons:
