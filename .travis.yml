@@ -32,8 +32,7 @@ jobs:
        - PACKAGE=nextpnr
 
 script:
-  - conda render conda-hdmi2usb-packages/$PACKAGE
-  - conda build --debug conda-hdmi2usb-packages/$PACKAGE --skip-existing --old-build-string
+  - bash $TRAVIS_BUILD_DIR/.travis/script.sh
   - ls "$CONDA_PREFIX"/conda-bld/$TRAVIS_OS_NAME-64/*bz2
 
 addons:
