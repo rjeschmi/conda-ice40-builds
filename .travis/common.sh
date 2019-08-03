@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Some colors, use it like following;
 # echo -e "Hello ${YELLOW}yellow${NC}"
 GRAY=' \033[0;30m'

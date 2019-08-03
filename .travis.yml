@@ -5,15 +5,8 @@ os: osx
 
 before_install: 
   - source $TRAVIS_BUILD_DIR/.travis/common.sh
-  - git submodule update --init --remote --recursive
-  - cd conda-hdmi2usb-packages && git checkout osx-add && cd ..
   - source ./.travis/conda-ci install $OPT
-  - echo CONDA_PREFIX is "$CONDA_PREFIX"
-  - conda list
   - source ./.travis/conda-ci install-conda-build
-  - conda list
-  - conda config --add channels rjeschmi
-  - conda config --add channels rjeschmi/label/nightly
 
 env:
     global:
