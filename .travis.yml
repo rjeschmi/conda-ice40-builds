@@ -18,12 +18,12 @@ env:
 
 jobs:
     include:
-     - stage: "IceStorm"
-       env:
-       - PACKAGE=icestorm
-     - stage: "iVerilog"
-       env:
-       - PACKAGE=iverilog
+        #     - stage: "IceStorm"
+        #env:
+        #- PACKAGE=icestorm
+        #- stage: "iVerilog"
+        #env:
+        #- PACKAGE=iverilog
      - stage: "Verilator"
        env:
        - PACKAGE=verilator
