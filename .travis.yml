@@ -7,6 +7,7 @@ before_install:
   - source $TRAVIS_BUILD_DIR/.travis/common.sh
   - source ./.travis/conda-ci install $OPT
   - source ./.travis/conda-ci install-conda-build
+  - ./.travis/setup.sh
 
 env:
     global:
@@ -31,7 +32,8 @@ jobs:
        - PACKAGE=nextpnr
 
 script:
-  - conda build --skip-existing --debug conda-hdmi2usb-packages/$PACKAGE
+  - conda render conda-hdmi2usb-packages/$PACKAGE
+  - conda build --debug conda-hdmi2usb-packages/$PACKAGE --skip-existing
   - ls "$CONDA_PREFIX"/conda-bld/$TRAVIS_OS_NAME-64/*bz2
 
 addons:
