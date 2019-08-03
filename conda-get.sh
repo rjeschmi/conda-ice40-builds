@@ -5,10 +5,19 @@ set -e
 
 CONDA_PATH=${1:-~/conda}
 
-wget -c https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
-chmod a+x Miniconda3-latest-Linux-x86_64.sh
+if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+    csys=Linux
+elif [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+    csys=MacOSX
+else
+    echo "Unsupported system $TRAVIS_OS_NAME"
+    exit 1
+fi
+
+wget -c https://repo.continuum.io/miniconda/Miniconda3-latest-$csys-x86_64.sh
+chmod a+x Miniconda3-latest-$csys-x86_64.sh
 if [ ! -d $CONDA_PATH -o ! -z "$CI"  ]; then
-        ./Miniconda3-latest-Linux-x86_64.sh -p $CONDA_PATH -b -f
+        ./Miniconda3-latest-$csys-x86_64.sh -p $CONDA_PATH -b -f
 fi
 export PATH=$CONDA_PATH/bin:$PATH
 
