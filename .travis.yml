@@ -33,7 +33,7 @@ jobs:
 
 script:
   - conda render conda-hdmi2usb-packages/$PACKAGE
-  - conda build --debug conda-hdmi2usb-packages/$PACKAGE --skip-existing
+  - conda build --debug conda-hdmi2usb-packages/$PACKAGE --skip-existing --old-build-string
   - ls "$CONDA_PREFIX"/conda-bld/$TRAVIS_OS_NAME-64/*bz2
 
 addons:
@@ -43,5 +43,5 @@ addons:
 
 
 after_success:
-  - anaconda -t $CONDA_UPLOAD_TOKEN upload -u rjeschmi -l nightly $CONDA_PREFIX/conda-bld/$TRAVIS_OS_NAME-64/$PACKAGE-*.tar.bz2 --force
+  - anaconda -t $CONDA_UPLOAD_TOKEN upload -u rjeschmi -l main $CONDA_PREFIX/conda-bld/$TRAVIS_OS_NAME-64/$PACKAGE-*.tar.bz2 --force
 
