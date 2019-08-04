@@ -34,3 +34,9 @@ conda install -y anaconda-client
 conda install -y jinja2
 
 conda update -y --all
+
+if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+    curl -LO https://github.com/phracker/MacOSX-SDKs/releases/download/10.13/MacOSX10.9.sdk.tar.xz
+    sudo mkdir -p /opt
+    sudo tar -xf MacOSX10.9.sdk.tar.xz -C /opt
+fi
