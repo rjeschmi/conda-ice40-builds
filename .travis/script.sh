@@ -6,14 +6,16 @@ set -e
 $SPACER
 
 start_section "info.conda.package" "Info on ${YELLOW}conda package${NC}"
-conda render $CONDA_BUILD_ARGS | tee /tmp/conda.render
+conda render $CONDA_BUILD_ARGS
 end_section "info.conda.package"
 
 $SPACER
 
-echo "Do we skip: $(python $TRAVIS_BUILD_DIR/check_for_existing.py)"
+conda render -f /tmp/conda.render .
 
-eval $(python $TRAVIS_BUILD_DIR/check_for_existing.py)
+echo "Do we skip: $(python $TRAVIS_BUILD_DIR/check_for_existing.py /tmp/conda.render)"
+
+eval $(python $TRAVIS_BUILD_DIR/check_for_existing.py /tmp/conda.render)
 
 echo "Do we skip: $SKIP_BUILD"
 
