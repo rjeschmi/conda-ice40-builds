@@ -36,14 +36,14 @@ conda config --show
 end_section "info.conda.config"
 
 start_section "info.conda.package" "Info on ${YELLOW}conda package${NC}"
-conda render $CONDA_BUILD_ARGS || true
+conda render conda-hdmi2usb-packages/$CONDA_BUILD_ARGS || true
 end_section "info.conda.package"
 
 $SPACER
 
 start_section "conda.copy" "${GREEN}Copying package...${NC}"
 mkdir -p /tmp/conda/$PACKAGE
-cp -vRL $PACKAGE/* /tmp/conda/$PACKAGE/
+cp -vRL conda-hdmi2usb-packages/$PACKAGE/* /tmp/conda/$PACKAGE/
 cd /tmp/conda/
 end_section "conda.copy"
 
