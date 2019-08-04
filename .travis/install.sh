@@ -36,7 +36,7 @@ conda config --show
 end_section "info.conda.config"
 
 start_section "info.conda.package" "Info on ${YELLOW}conda package${NC}"
-conda render conda-hdmi2usb-packages/$CONDA_BUILD_ARGS || true
+conda render $CONDA_BUILD_ARGS || true
 end_section "info.conda.package"
 
 $SPACER
