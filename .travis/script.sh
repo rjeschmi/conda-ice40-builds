@@ -11,7 +11,7 @@ end_section "info.conda.package"
 
 $SPACER
 
-conda render -f /tmp/conda.render .
+conda render -f /tmp/conda.render $CONDA_BUILD_ARGS
 
 echo "Do we skip: $(python $TRAVIS_BUILD_DIR/check_for_existing.py /tmp/conda.render)"
 
