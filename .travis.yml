@@ -7,12 +7,6 @@ before_install:
   - source $TRAVIS_BUILD_DIR/.travis/common.sh
   - ./.travis/setup.sh
 
-env:
-    global:
-        - MACOSX_DEPLOYMENT_TARGET=10.9
-        - CONDA_BUILD_SYSROOT="$(xcode-select -p)/Platforms/MacOSX.platform/Developer/SDKs/MacOSX${MACOSX_DEPLOYMENT_TARGET}.sdk"
-        - OPT="--prefix=$HOME/test/prefix"
-
 install:
         - ./.travis/install.sh
 
