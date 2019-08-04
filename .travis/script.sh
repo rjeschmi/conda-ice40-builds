@@ -11,6 +11,8 @@ end_section "info.conda.package"
 
 $SPACER
 
+echo "Do we skip: $(python $TRAVIS_BUILD_DIR/check_for_existing.py)"
+
 eval $(python $TRAVIS_BUILD_DIR/check_for_existing.py)
 
 echo "Do we skip: $SKIP_BUILD"
