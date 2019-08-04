@@ -11,7 +11,7 @@ end_section "info.conda.package"
 
 $SPACER
 
-eval "python $TRAVIS_BUILD_DIR/check_for_existing.py"
+eval $(python $TRAVIS_BUILD_DIR/check_for_existing.py)
 
 if [[ !$SKIP_BUILD ]]; then
     start_section "conda.check" "${GREEN}Checking...${NC}"
