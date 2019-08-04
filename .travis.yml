@@ -44,3 +44,5 @@ addons:
 after_success:
   - anaconda -t $CONDA_UPLOAD_TOKEN upload -u rjeschmi -l main $CONDA_PREFIX/conda-bld/$TRAVIS_OS_NAME-64/$PACKAGE-*.tar.bz2 --force
 
+hafter_failure:
+  - bash $TRAVIS_BUILD_DIR/.travis/after_failure.sh
