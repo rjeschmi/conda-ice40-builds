@@ -13,7 +13,9 @@ $SPACER
 
 eval $(python $TRAVIS_BUILD_DIR/check_for_existing.py)
 
-if [[ !$SKIP_BUILD ]]; then
+echo "Do we skip: $SKIP_BUILD"
+
+if [[ -z "$SKIP_BUILD" ]]; then
     start_section "conda.check" "${GREEN}Checking...${NC}"
     conda build --check $CONDA_BUILD_ARGS || true
     end_section "conda.check"
