@@ -21,7 +21,11 @@ with open(args.pop(0)) as f:
 render_version = conda_render['package']['version']
 
 #print("searching for package %s " % package)
-raw_json = subprocess.check_output('conda search --json %s ' % package, shell=True)
+try:
+    raw_json = subprocess.check_output('conda search --json %s ' % package, shell=True)
+except subprocess.CalledProcessError as e:
+    sys.exit(0)
+
 
 #print("DEBUG: %s " % raw_json)
 
