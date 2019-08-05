@@ -7,14 +7,12 @@ $SPACER
 
 start_section "info.conda.package" "Info on ${YELLOW}conda package${NC}"
 conda render $CONDA_BUILD_ARGS
+conda render -f /tmp/conda.render $CONDA_BUILD_ARGS
+eval $(python $TRAVIS_BUILD_DIR/check_for_existing.py /tmp/conda.render)
 end_section "info.conda.package"
 
 $SPACER
 
-conda render -f /tmp/conda.render $CONDA_BUILD_ARGS
-eval $(python $TRAVIS_BUILD_DIR/check_for_existing.py /tmp/conda.render)
-
-echo "Do we skip: $SKIP_BUILD"
 
 if [[ -z "$SKIP_BUILD" ]]; then
     start_section "conda.check" "${GREEN}Checking...${NC}"
