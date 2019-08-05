@@ -14,7 +14,7 @@ else
     exit 1
 fi
 
-wget -c https://repo.continuum.io/miniconda/Miniconda3-latest-$csys-x86_64.sh
+wget -q -c https://repo.continuum.io/miniconda/Miniconda3-latest-$csys-x86_64.sh
 chmod a+x Miniconda3-latest-$csys-x86_64.sh
 if [ ! -d $CONDA_PATH -o ! -z "$CI"  ]; then
         ./Miniconda3-latest-$csys-x86_64.sh -p $CONDA_PATH -b -f
