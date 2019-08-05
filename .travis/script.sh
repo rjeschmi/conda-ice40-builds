@@ -24,7 +24,7 @@ if [[ -z "$SKIP_BUILD" ]]; then
     $SPACER
 
     start_section "conda.build" "${GREEN}Building..${NC}"
-    python $TRAVIS_BUILD_DIR/.travis-output.py /tmp/output.log conda build --skip-existing --old-build-string $CONDA_BUILD_ARGS
+    python $TRAVIS_BUILD_DIR/.travis-output.py /tmp/output.log conda build --no-test --skip-existing --old-build-string $CONDA_BUILD_ARGS
     echo "conda build exit: $?"
     end_section "conda.build"
 
