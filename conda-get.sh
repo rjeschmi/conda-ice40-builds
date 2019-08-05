@@ -35,6 +35,8 @@ conda install -y jinja2
 
 conda update -y --all
 
+source $TRAVIS_BUILD_DIR/.travis/common.sh
+
 if [[ "$TRAVIS_OS_NAME" == "osx" && -z $SKIP_BUILD ]]; then
     curl -LO https://github.com/phracker/MacOSX-SDKs/releases/download/10.13/MacOSX10.9.sdk.tar.xz
     sudo mkdir -p /opt
