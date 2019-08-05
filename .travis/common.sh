@@ -60,6 +60,9 @@ if [ -f "$PACKAGE/conda_build_config.$TOOLCHAIN_ARCH.yaml" ]; then
 fi
 export CONDA_OUT="$(conda render --output $CONDA_BUILD_ARGS 2> /dev/null | grep conda-bld | grep tar.bz2 | tail -n 1 | sed -e's/-[0-9]\+\.tar/*.tar/' -e's/-git//')"
 
+conda render -f /tmp/conda.render $CONDA_BUILD_ARGS
+eval $(python $TRAVIS_BUILD_DIR/check_for_existing.py /tmp/conda.render)
+
 echo "          GITREV: $GITREV"
 echo "      CONDA_PATH: $CONDA_PATH"
 echo "CONDA_BUILD_ARGS: $CONDA_BUILD_ARGS"

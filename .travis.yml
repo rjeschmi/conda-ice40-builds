@@ -9,6 +9,7 @@ before_install:
 
 install:
         - ./.travis/install.sh
+        - source $TRAVIS_BUILD_DIR/.travis/common.sh
 
 jobs:
     include:
