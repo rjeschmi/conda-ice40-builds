@@ -13,6 +13,9 @@ install:
 
 jobs:
     include:
+     - stage: "Verilog Tools"
+       env:
+       - PACKAGE=yosys
      - stage: "IceStorm"
        env:
        - PACKAGE=icestorm
